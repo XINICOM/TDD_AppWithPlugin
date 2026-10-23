@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TDD_AppWithPlugin/TDD_AppWithPlugin.csproj" />
+  <Project Path="TDD_HelloPlugin/TDD_HelloPlugin.csproj" />
+  <Project Path="TDD_PluginBase/TDD_PluginBase.csproj" />
+</Solution>
