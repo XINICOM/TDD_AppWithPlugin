@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows.Input;
+﻿using System.Reflection;
 using TDD_PluginBase;
 
 namespace TDD_AppWithPlugin
@@ -27,11 +22,10 @@ namespace TDD_AppWithPlugin
                 }
 
                 // Load commands from plugins.
-                string[] pluginPaths =
-                [
+                string[] pluginPaths = new string[]{
                     // Path to the plugin.
                     @"TDD_HelloPlugin\bin\Debug\net10.0\TDD_HelloPlugin.dll"
-                ];
+                };
                 IEnumerable<TDD_PluginBase.ICommand> commands = [.. pluginPaths.SelectMany(path =>
                 {
                     Assembly pluginAssembly = LoadPlugin(path);
@@ -49,22 +43,22 @@ namespace TDD_AppWithPlugin
                 }
                 else
                 {
-                    foreach (string commandName in args)
+                    foreach (string cn in args)
                     {
-                        Console.WriteLine($"-- {commandName} --");
+                        Console.WriteLine($"-- {cn} --");
 
                         // Skip command-line switches/flags (arguments starting with '/' or '-')
-                        if (commandName.StartsWith("/") || commandName.StartsWith("-"))
+                        if (cn.StartsWith("/") || cn.StartsWith("-"))
                         {
-                            Console.WriteLine($"Skipping command-line flag: {commandName}");
+                            Console.WriteLine($"Skipping command-line flag: {cn}");
                             continue;
                         }
 
                         // Execute the command with the name passed as an argument.
-                        TDD_PluginBase.ICommand command = commands.FirstOrDefault(c => c.Name == commandName);
+                        TDD_PluginBase.ICommand command = commands.FirstOrDefault(c => c.Name == cn);
                         if (command == null)
                         {
-                            Console.WriteLine($"No such command is known: {commandName}");
+                            Console.WriteLine($"No such command is known: {cn}");
                             continue;
                         }
 
